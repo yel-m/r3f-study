@@ -1,12 +1,15 @@
 import './App.css'
-import { Hello1 } from './Hello.tsx';
-
+import { Canvas } from '@react-three/fiber'
+import ThreeElement from './ThreeElement';
 
 function App() {
 
   return (
     <>
-      <Hello1 from="tom" to="yelim"></Hello1>
+      <Canvas>
+        <ThreeElement />
+      </Canvas>
+      R3F Basic
     </>
   )
 }
