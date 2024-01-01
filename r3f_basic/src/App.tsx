@@ -6,7 +6,16 @@ function App() {
 
   return (
     <>
-      <Canvas>
+      <Canvas
+        orthographic
+        camera={{
+          zoom: 50,
+          near:1,
+          far:20,
+          fov:75,
+          position:[5,5,0],
+        }}
+      >
         <ThreeElement />
       </Canvas>
       R3F Basic
