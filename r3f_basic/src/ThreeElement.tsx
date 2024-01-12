@@ -1,10 +1,11 @@
 import * as THREE from "three";
 import { useThree, useFrame } from "@react-three/fiber"; // 내장 함수
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 
 export default function ThreeElement() {
   const { size, gl, scene, camera } = useThree();
   const boxRef = useRef<THREE.Mesh>(null);
+  const boxCopyRef = useRef<THREE.Mesh>(null);
 
 
   useFrame((state, delta) => {
@@ -16,6 +17,10 @@ export default function ThreeElement() {
     // groupRef.current.rotation.x += delta;
   })
 
+  useEffect(() => {
+    boxCopyRef.current.geometry = boxRef.current.geometry;
+  }, [])
+
   return ( 
     <>
       <directionalLight position={[5, 5, 5]} />
@@ -25,6 +30,11 @@ export default function ThreeElement() {
       >
         <boxGeometry />
         <meshStandardMaterial wireframe/>
+      </mesh>
+      <mesh
+        ref={boxCopyRef}
+      >
+        <meshStandardMaterial color="red"/>
       </mesh>
     </>
   );
