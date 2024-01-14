@@ -79,6 +79,22 @@ export default function ThreeElement() {
         <mesh>
           <meshNormalMaterial />
         </mesh>
+        <mesh>
+          <meshStandardMaterial
+              color="red"
+              visible={true}
+              transparent={false}
+              opacity={1}
+              side={THREE.FrontSide}
+              alphaTest={1}
+              depthTest={true}
+              depthWrite={true}
+
+              emissive={"black"}
+              roughness={1}
+              matalness={0}
+            />
+        </mesh>
       </group>
     </>
   );
