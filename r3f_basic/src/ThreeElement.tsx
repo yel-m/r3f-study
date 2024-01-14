@@ -122,6 +122,9 @@ export default function ThreeElement() {
               ior={2.33}
             />
         </mesh>
+        <mesh>
+          <meshDepthMaterial/>
+        </mesh>
       </group>
     </>
   );
