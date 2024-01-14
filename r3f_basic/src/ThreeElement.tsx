@@ -25,10 +25,13 @@ export default function ThreeElement() {
     <>
       <directionalLight position={[5, 5, 5]} intensity={1} />
       <mesh ref={meshRef}>
-        <boxGeometry />
+        <sphereGeometry args={[1,32,16]}/>
         <meshBasicMaterial visible={false} color="green" />
       </mesh>
       <group ref={groupRef}>
+        <mesh>
+          <meshBasicMaterial color="green" wireframe />
+        </mesh>
         <mesh>
           <meshBasicMaterial
             color="red"
@@ -53,6 +56,24 @@ export default function ThreeElement() {
             depthWrite={true}
             fog={true}
             emissive={"black"}
+          />
+        </mesh>
+        <mesh>
+          <meshPhongMaterial
+            color="red"
+            visible={true}
+            transparent={false}
+            opacity={1}
+            side={THREE.FrontSide}
+            alphaTest={1}
+            depthTest={true}
+            depthWrite={true}
+            fog={true}
+
+            emissive={"black"}
+            specular={"#fff"}
+            shininess={200}
+            flatShading={true}
           />
         </mesh>
       </group>
