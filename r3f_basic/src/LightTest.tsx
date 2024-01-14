@@ -27,7 +27,8 @@ export default function ThreeElement() {
   return (
     <>
       {/* <directionalLight position={[5, 5, 5]} intensity={1} /> */}
-      <ambientLight color={'blue'} intensity={1} />
+      {/* <ambientLight color={'blue'} intensity={1} /> */}
+      <hemisphereLight args={['blue', 'yellow', 2]} />
       <mesh rotation-x={[THREE.MathUtils.degToRad(-90)]} position-y={-1}>
         <planeGeometry args={[15, 15]} />
         <meshStandardMaterial color={"#020059"} side={THREE.DoubleSide} />
