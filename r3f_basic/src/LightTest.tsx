@@ -31,12 +31,18 @@ export default function ThreeElement() {
     <>
       {/* <ambientLight color={'blue'} intensity={1} /> */}
       {/* <hemisphereLight args={['blue', 'yellow', 2]} /> */}
-      <directionalLight
+      {/* <directionalLight
         ref={dLight}
         color={"fff"}
         position={[0,5,0]}
         intensity={5}
         target-position={[0,0,2]}
+      /> */}
+      <pointLight
+        color={"#fff"}
+        position={[0, 0, 2]}
+        intensity={5}
+        distance={5}
       />
       <mesh rotation-x={[THREE.MathUtils.degToRad(-90)]} position-y={-1}>
         <planeGeometry args={[15, 15]} />
