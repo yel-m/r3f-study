@@ -27,6 +27,9 @@ export default function ThreeElement() {
   const dLight = useRef<THREE.DirectionalLight>(null!);
   useHelper(dLight, THREE.DirectionalLightHelper);
 
+  const sLight = useRef<THREE.SpotLight>(null!);
+  useHelper(sLight, THREE.SpotLightHelper);
+
   return (
     <>
       {/* <ambientLight color={'blue'} intensity={1} /> */}
@@ -38,11 +41,21 @@ export default function ThreeElement() {
         intensity={5}
         target-position={[0,0,2]}
       /> */}
-      <pointLight
+      {/* <pointLight
         color={"#fff"}
         position={[0, 0, 2]}
         intensity={5}
         distance={5}
+      /> */}
+      <spotLight
+        ref={sLight}
+        color={"#fff"}
+        position={[0, 5, 0]}
+        intensity={300}
+        distance={10}
+        angle={THREE.MathUtils.degToRad(40)}
+        target-position={[0,0,0]}
+        penumbra={0.5}
       />
       <mesh rotation-x={[THREE.MathUtils.degToRad(-90)]} position-y={-1}>
         <planeGeometry args={[15, 15]} />
