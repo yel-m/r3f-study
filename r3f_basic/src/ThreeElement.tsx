@@ -12,6 +12,9 @@ export default function ThreeElement() {
   })
 
   const matcap = useTexture('./imgs/matcap1.jpg');
+  const tone = useTexture('./imgs/fiveTone.jpg');
+  tone.minFilter = THREE.NearestFilter;
+  tone.magFilter = THREE.NearestFilter;
 
 
   useEffect(() => {
@@ -132,7 +135,7 @@ export default function ThreeElement() {
           <meshMatcapMaterial matcap={matcap}/>
         </mesh>
         <mesh>
-          <meshBasicMaterial />
+          <meshToonMaterial gradientMap={tone} color="pink"/>
         </mesh>
       </group>
     </>
