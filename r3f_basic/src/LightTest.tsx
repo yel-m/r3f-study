@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { useEffect, useRef } from "react";
-import { useTexture } from "@react-three/drei";
+import { useHelper, useTexture } from "@react-three/drei";
 
 export default function ThreeElement() {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -24,11 +24,20 @@ export default function ThreeElement() {
     }
   }, []);
 
+  const dLight = useRef<THREE.DirectionalLight>(null!);
+  useHelper(dLight, THREE.DirectionalLightHelper);
+
   return (
     <>
-      {/* <directionalLight position={[5, 5, 5]} intensity={1} /> */}
       {/* <ambientLight color={'blue'} intensity={1} /> */}
-      <hemisphereLight args={['blue', 'yellow', 2]} />
+      {/* <hemisphereLight args={['blue', 'yellow', 2]} /> */}
+      <directionalLight
+        ref={dLight}
+        color={"fff"}
+        position={[0,5,0]}
+        intensity={5}
+        target-position={[0,0,2]}
+      />
       <mesh rotation-x={[THREE.MathUtils.degToRad(-90)]} position-y={-1}>
         <planeGeometry args={[15, 15]} />
         <meshStandardMaterial color={"#020059"} side={THREE.DoubleSide} />
