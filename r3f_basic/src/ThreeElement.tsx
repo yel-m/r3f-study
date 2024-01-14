@@ -1,28 +1,27 @@
 import * as THREE from "three";
-import { useFrame } from "@react-three/fiber"; // 내장 함수
 import { useEffect, useRef } from "react";
 import { useControls } from 'leva';
 
 export default function ThreeElement() {
   const meshRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
-  // const meshCopyRef1 = useRef<THREE.Mesh>(null);
-  // const meshCopyRef2 = useRef<THREE.Mesh>(null);
 
   const controls = useControls({
     thickness : {value: 0.1, min: 0.1, max: 10, step: 0.1 }
   })
-  useFrame((state, delta) => {});
 
   useEffect(() => {
-    // group의 children의 geometry를 meshRef의 geometry로 바꿔주는 작업
+    const meshLength = groupRef.current!.children.length;
     for (let i = 0; i < groupRef.current!.children.length; i++) {
       const mesh = groupRef.current!.children[i] as THREE.Mesh;
       mesh.geometry = meshRef.current!.geometry;
-      mesh.position.x = i * 2;
+      mesh.position.x = i % (meshLength/2) * 2 - 4;
+      mesh.position.z = 0;
+      if(i >= meshLength / 2) {
+        mesh.position.z = 2;
+      }
     }
-    // meshCopyRef1.current!.geometry = meshRef.current!.geometry;
-    // meshCopyRef2.current!.geometry = meshRef.current!.geometry;
+
   }, []);
 
   return (
