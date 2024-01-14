@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber"; // 내장 함수
 import { useEffect, useRef } from "react";
+import { useControls } from 'leva';
 
 export default function ThreeElement() {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -8,6 +9,9 @@ export default function ThreeElement() {
   // const meshCopyRef1 = useRef<THREE.Mesh>(null);
   // const meshCopyRef2 = useRef<THREE.Mesh>(null);
 
+  const controls = useControls({
+    thickness : {value: 0.1, min: 0.1, max: 10, step: 0.1 }
+  })
   useFrame((state, delta) => {});
 
   useEffect(() => {
@@ -25,7 +29,7 @@ export default function ThreeElement() {
     <>
       <directionalLight position={[5, 5, 5]} intensity={1} />
       <mesh ref={meshRef}>
-        <sphereGeometry args={[1,32,16]}/>
+        <torusKnotGeometry args={[0.5, 0.2]}/>
         <meshBasicMaterial visible={false} color="green" />
       </mesh>
       <group ref={groupRef}>
@@ -93,6 +97,29 @@ export default function ThreeElement() {
               emissive={"black"}
               roughness={1}
               matalness={0}
+            />
+        </mesh>
+        <mesh>
+          <meshPhysicalMaterial
+              color="#fff"
+              visible={true}
+              transparent={true}
+              opacity={1}
+              side={THREE.FrontSide}
+              alphaTest={1}
+              depthTest={true}
+              depthWrite={true}
+              fog={true}
+
+              emissive={"black"}
+              roughness={0}
+              matalness={0}
+              clearcoat={0}
+              clearcoatRoughness={0}
+
+              transmission={0.5}
+              thickness={controls.thickness}
+              ior={2.33}
             />
         </mesh>
       </group>
