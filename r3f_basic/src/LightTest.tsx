@@ -32,15 +32,19 @@ export default function ThreeElement() {
 
   return (
     <>
-      {/* <ambientLight color={'blue'} intensity={1} /> */}
-      {/* <hemisphereLight args={['blue', 'yellow', 2]} /> */}
-      {/* <directionalLight
+      <directionalLight
+        castShadow
+        // shadow-camera-top={10}
+        // shadow-camera-bottom={-10}
+        // shadow-camera-left={-10}
+        // shadow-camera-right={10}
+        shadow-mapSize = {[512, 512]}
         ref={dLight}
-        color={"fff"}
-        position={[0,5,0]}
+        color={"#fff"}
+        position={[0, 5, 0]}
         intensity={5}
-        target-position={[0,0,2]}
-      /> */}
+        target-position={[0, 0, 2]}
+      />
       {/* <pointLight
         color={"#fff"}
         position={[0, 0, 2]}
@@ -57,12 +61,11 @@ export default function ThreeElement() {
         target-position={[0,0,0]}
         penumbra={0.5}
       /> */}
-      <Environment 
-        files={'./imgs/hdr1.hdr'}
-        background
-        blur={0}
-      />
-      <mesh rotation-x={[THREE.MathUtils.degToRad(-90)]} position-y={-1}>
+      <mesh
+        rotation-x={[THREE.MathUtils.degToRad(-90)]}
+        position-y={-1}
+        receiveShadow
+      >
         <planeGeometry args={[15, 15]} />
         <meshStandardMaterial color={"#020059"} side={THREE.DoubleSide} />
       </mesh>
@@ -71,7 +74,7 @@ export default function ThreeElement() {
         <meshBasicMaterial visible={false} color="green" />
       </mesh>
       <group ref={groupRef}>
-        <mesh>
+        <mesh castShadow receiveShadow>
           <meshLambertMaterial
             color="red"
             visible={true}
@@ -85,7 +88,7 @@ export default function ThreeElement() {
             emissive={"black"}
           />
         </mesh>
-        <mesh>
+        <mesh castShadow receiveShadow>
           <meshPhongMaterial
             color="red"
             visible={true}
@@ -102,7 +105,7 @@ export default function ThreeElement() {
             flatShading={true}
           />
         </mesh>
-        <mesh>
+        <mesh castShadow receiveShadow>
           <meshStandardMaterial
             color="red"
             visible={true}
@@ -117,7 +120,7 @@ export default function ThreeElement() {
             matalness={0}
           />
         </mesh>
-        <mesh>
+        <mesh castShadow receiveShadow>
           <meshPhysicalMaterial
             color="#fff"
             visible={true}
@@ -138,7 +141,77 @@ export default function ThreeElement() {
             ior={2.33}
           />
         </mesh>
-        <mesh>
+        <mesh castShadow receiveShadow>
+          <meshToonMaterial gradientMap={tone} color="pink" />
+        </mesh>
+        <mesh castShadow receiveShadow>
+          <meshLambertMaterial
+            color="red"
+            visible={true}
+            transparent={false}
+            opacity={1}
+            side={THREE.FrontSide}
+            alphaTest={1}
+            depthTest={true}
+            depthWrite={true}
+            fog={true}
+            emissive={"black"}
+          />
+        </mesh>
+        <mesh castShadow receiveShadow>
+          <meshPhongMaterial
+            color="red"
+            visible={true}
+            transparent={false}
+            opacity={1}
+            side={THREE.FrontSide}
+            alphaTest={1}
+            depthTest={true}
+            depthWrite={true}
+            fog={true}
+            emissive={"black"}
+            specular={"#fff"}
+            shininess={200}
+            flatShading={true}
+          />
+        </mesh>
+        <mesh castShadow receiveShadow>
+          <meshStandardMaterial
+            color="red"
+            visible={true}
+            transparent={false}
+            opacity={1}
+            side={THREE.FrontSide}
+            alphaTest={1}
+            depthTest={true}
+            depthWrite={true}
+            emissive={"black"}
+            roughness={1}
+            matalness={0}
+          />
+        </mesh>
+        <mesh castShadow receiveShadow>
+          <meshPhysicalMaterial
+            color="#fff"
+            visible={true}
+            transparent={true}
+            opacity={1}
+            side={THREE.FrontSide}
+            alphaTest={1}
+            depthTest={true}
+            depthWrite={true}
+            fog={true}
+            emissive={"black"}
+            roughness={0}
+            matalness={0}
+            clearcoat={0}
+            clearcoatRoughness={0}
+            transmission={0.5}
+            thickness={0.5}
+            ior={2.33}
+          />
+        </mesh>
+        <mesh castShadow receiveShadow>
           <meshToonMaterial gradientMap={tone} color="pink" />
         </mesh>
       </group>
