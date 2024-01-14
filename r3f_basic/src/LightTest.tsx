@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { useEffect, useRef } from "react";
-import { useHelper, useTexture } from "@react-three/drei";
+import { Environment, useHelper, useTexture } from "@react-three/drei";
 
 export default function ThreeElement() {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -47,7 +47,7 @@ export default function ThreeElement() {
         intensity={5}
         distance={5}
       /> */}
-      <spotLight
+      {/* <spotLight
         ref={sLight}
         color={"#fff"}
         position={[0, 5, 0]}
@@ -56,6 +56,11 @@ export default function ThreeElement() {
         angle={THREE.MathUtils.degToRad(40)}
         target-position={[0,0,0]}
         penumbra={0.5}
+      /> */}
+      <Environment 
+        files={'./imgs/hdr1.hdr'}
+        background
+        blur={0}
       />
       <mesh rotation-x={[THREE.MathUtils.degToRad(-90)]} position-y={-1}>
         <planeGeometry args={[15, 15]} />
