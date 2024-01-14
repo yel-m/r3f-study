@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { useEffect, useRef } from "react";
 import { useControls } from 'leva';
+import { useTexture } from "@react-three/drei";
 
 export default function ThreeElement() {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -9,6 +10,9 @@ export default function ThreeElement() {
   const controls = useControls({
     thickness : {value: 0.1, min: 0.1, max: 10, step: 0.1 }
   })
+
+  const matcap = useTexture('./imgs/matcap1.jpg');
+
 
   useEffect(() => {
     const meshLength = groupRef.current!.children.length;
@@ -123,6 +127,12 @@ export default function ThreeElement() {
         </mesh>
         <mesh>
           <meshDepthMaterial/>
+        </mesh>
+        <mesh>
+          <meshMatcapMaterial matcap={matcap}/>
+        </mesh>
+        <mesh>
+          <meshBasicMaterial />
         </mesh>
       </group>
     </>
