@@ -76,6 +76,9 @@ export default function ThreeElement() {
             flatShading={true}
           />
         </mesh>
+        <mesh>
+          <meshNormalMaterial />
+        </mesh>
       </group>
     </>
   );
