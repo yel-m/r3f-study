@@ -13,10 +13,10 @@ function App() {
           position:[5,5,5],
         }}
       >
-        <color attach="background" args={['white']} />
+        <color attach="background" args={['black']} />
         <OrbitControls/>
-        <axesHelper args={[6]}/>
-        <gridHelper args={[10, 10]}/>
+        {/* <axesHelper args={[6]}/> */}
+        {/* <gridHelper args={[10, 10]}/> */}
         {/* <MaterialTest /> */}
         <LightTest />
       </Canvas>
