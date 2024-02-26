@@ -23,6 +23,7 @@ export default function ShowRoom() {
 
         if (intersects.length > 0) {
             const firstObj = intersects[0].object as THREE.Mesh;
+            console.log("firstObj.name : " + firstObj.name);
             const firstMat = firstObj.material as THREE.MeshStandardMaterial;
             const cloneMat = firstMat.clone();
 
