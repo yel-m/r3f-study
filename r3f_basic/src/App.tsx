@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber'
 import MaterialTest from './MaterialTest';
 import LightTest from './LightTest';
 import { OrbitControls } from '@react-three/drei';
+import InteractionTest from './InteractionTest';
 
 function App() {
 
@@ -16,10 +17,11 @@ function App() {
       >
         <color attach="background" args={['black']} />
         <OrbitControls/>
-        {/* <axesHelper args={[6]}/> */}
-        {/* <gridHelper args={[10, 10]}/> */}
+        <axesHelper args={[6]}/>
+        <gridHelper args={[10, 10]}/>
         {/* <MaterialTest /> */}
-        <LightTest />
+        {/* <LightTest /> */}
+        <InteractionTest />
       </Canvas>
       R3F Basic
     </>
