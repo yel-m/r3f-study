@@ -10,7 +10,7 @@ export default defineConfig({
       {
         find: "@src",
         replacement: path.resolve(__dirname, "src")
-      }
+      },
       {
         find: "@components",
         replacement: path.resolve(__dirname, "src/components")
