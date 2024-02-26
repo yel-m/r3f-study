@@ -1,6 +1,4 @@
 import * as THREE from 'three';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { useLoader } from '@react-three/fiber'
 import { useThree } from '@react-three/fiber'
@@ -9,8 +7,6 @@ export default function ShowRoom() {
 
     const { raycaster } = useThree();
 
-    const obj = useLoader(OBJLoader, './models/custom.obj')
-    const fbx = useLoader(FBXLoader, './models/custom.fbx')
     const gltf = useLoader(GLTFLoader, './models/custom.glb')
     
     console.log("gltf : ", gltf);
@@ -35,8 +31,6 @@ export default function ShowRoom() {
     }
     return (
         <>
-            {/* <primitive object={obj} /> */}
-            {/* <primitive object={fbx} /> */}
             <primitive
                 object={gltf.scene}
                 onClick={shoesClick}
