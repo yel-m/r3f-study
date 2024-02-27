@@ -1,16 +1,15 @@
 import { Canvas } from "@react-three/fiber"
 import ShowRoom from '@components/three/ShowRoom'
-import { OrbitControls } from "@react-three/drei"
 
 export default function Home() {
 
     return (
         <>
-            <Canvas>
+            <Canvas
+                orthographic
+            >
                 <axesHelper args={[5]} />
                 <gridHelper />
-                <OrbitControls />
-                <directionalLight position={[3, 3, 3]} />
                 <ShowRoom />
             </Canvas>
         </>
