@@ -29,12 +29,22 @@ export default function ShowRoom() {
             const mat = firstObj.material as THREE.MeshStandardMaterial;
             mat.color = new THREE.Color('red');
 
-            cameraControlsRef.current.setLookAt(
-                -2, 0, 2,
-                firstObj.position.x,
-                firstObj.position.y,
-                firstObj.position.z,
-                true
+            // cameraControlsRef.current.setLookAt(
+            //     -2, 0, 2,
+            //     firstObj.position.x,
+            //     firstObj.position.y,
+            //     firstObj.position.z,
+            //     true
+            // )
+            cameraControlsRef.current.fitToBox(
+                firstObj,
+                true,
+                {
+                    paddingLeft: 3,
+                    paddingRight: 3,
+                    paddingTop: 3,
+                    paddingBottom: 3
+                }
             )
 
         }
@@ -46,7 +56,7 @@ export default function ShowRoom() {
                 ref={cameraControlsRef}
                 enabled={true}
                 dollyToCursor={true}
-                minDistance={2}
+                // minDistance={2}
                 // maxDistance={10}
                 infinityDolly={false}
                 onChange={() => {
