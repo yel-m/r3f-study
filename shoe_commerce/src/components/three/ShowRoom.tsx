@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { useLoader , useThree } from '@react-three/fiber'
+import { CameraControls } from '@react-three/drei'
+import { useRef, useEffect } from 'react';
 
 export default function ShowRoom() {
 
@@ -9,6 +11,7 @@ export default function ShowRoom() {
     const gltf = useLoader(GLTFLoader, './models/custom.glb')
     
     console.log("gltf : ", gltf);
+    const cameraControlsRef = useRef<CameraControls>(null!);
 
     const shoesClick = () => {
 
@@ -25,6 +28,14 @@ export default function ShowRoom() {
             firstObj.material = cloneMat;
             const mat = firstObj.material as THREE.MeshStandardMaterial;
             mat.color = new THREE.Color('red');
+
+            cameraControlsRef.current.setLookAt(
+                -2, 0, 2,
+                firstObj.position.x,
+                firstObj.position.y,
+                firstObj.position.z,
+                true
+            )
 
         }
     }
