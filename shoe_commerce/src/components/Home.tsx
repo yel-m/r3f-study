@@ -6,7 +6,8 @@ export default function Home() {
     return (
         <>
             <Canvas
-                orthographic
+                shadows
+                // orthographic
             >
                 <axesHelper args={[5]} />
                 <gridHelper />

@@ -36,6 +36,12 @@ export default function ShowRoom() {
     })
 
     useEffect(() => {
+        gltf.scene.children.forEach(shoes => {
+            shoes.castShadow = true;
+            shoes.children.forEach((mesh) => {
+                mesh.castShadow = true;
+            })
+        })
         cameraControlsRef.current.setTarget(0, 0, 0, false);
         cameraControlsRef.current.addEventListener( 'control', () => {
             console.log("control")
@@ -49,14 +55,28 @@ export default function ShowRoom() {
     let angle = 0;
     let dis = 2;
     useFrame(() => {
-        console.log("isFitting : ", isFitting);
-        cameraControlsRef.current.setPosition(
-            dis * Math.sin(angle),
-            0.8,
-            dis * Math.cos(angle),
-            true
-        )
-        angle = angle + 0.01;
+        // console.log("isFitting : ", isFitting);
+        // cameraControlsRef.current.setPosition(
+        //     dis * Math.sin(angle),
+        //     0.8,
+        //     dis * Math.cos(angle),
+        //     true
+        // )
+        // angle = angle + 0.01;
+        
+        const rightShoes = gltf.scene.children[0];
+        const leftShoes = gltf.scene.children[1];
+
+        leftShoes.rotation.y = THREE.MathUtils.degToRad(300);
+        leftShoes.position.z = 0.3;
+
+        rightShoes.rotation.y = THREE.MathUtils.degToRad(10);
+        leftShoes.rotation.y = THREE.MathUtils.degToRad(325);
+        leftShoes.rotation.z = THREE.MathUtils.degToRad(-30);
+        leftShoes.position.x = -0.25;
+        leftShoes.position.z = 0.37;
+        leftShoes.position.y = 0.44;
+
     })
 
     const shoesClick = () => {
@@ -105,7 +125,15 @@ export default function ShowRoom() {
     }
     return (
         <>
-            <directionalLight position={[3, 3, 3]} />
+            <directionalLight 
+                castShadow
+                position={[3, 3, 3]}
+            />
+            <pointLight
+                castShadow
+                position={[0,1,0]}
+                intensity={3}
+            />
             <CameraControls 
                 ref={cameraControlsRef}
                 enabled={true}
@@ -114,27 +142,38 @@ export default function ShowRoom() {
                 // maxDistance={10}
                 infinityDolly={false}
                 onChange={(e:any) => {
-                    // console.log("onChange e : ", e);
-                    // console.log("onChange e.type", e.type);
+                    console.log("onChange e : ", e);
+                    console.log("onChange e.type", e.type);
                     // console.log("camera.zoom : ", camera.zoom);
                     // console.log("camera.position : ", camera.position);
                     
                 }}
             />
+            <mesh
+                castShadow
+                position={[1, 0.3, 1]}
+            >
+                
+                <boxGeometry args={[0.5, 0.5]} />
+                <meshStandardMaterial />
+
+            </mesh>
+            <mesh
+                receiveShadow
+                castShadow
+                scale={5}
+                position={[0, -0.5, 0]}
+            >
+                <cylinderGeometry 
+                    args={[0.4, 0.2, 0.2, 50]}
+                />
+                <meshStandardMaterial />
+            </mesh>
             <primitive
+                castShadow
                 object={gltf.scene}
                 onClick={shoesClick}
             />
-            {/* <mesh rotation={
-                [
-                    THREE.MathUtils.degToRad(45),
-                    THREE.MathUtils.degToRad(45),
-                    0
-                ]
-            }>
-                <boxGeometry />
-                <meshStandardMaterial />
-            </mesh> */}
         </>
     )
 }
