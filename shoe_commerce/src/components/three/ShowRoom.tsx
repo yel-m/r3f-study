@@ -2,14 +2,16 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { useLoader , useThree, useFrame } from '@react-three/fiber'
 import { CameraControls } from '@react-three/drei'
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 export default function ShowRoom() {
 
     const { raycaster, camera } = useThree();
-
+    const cameraControlsRef = useRef<CameraControls>(null!);
     const gltf = useLoader(GLTFLoader, './models/custom.glb')
     
+    const [ isFitting, setIsFitting ] = useState(false);
+
     console.log("gltf : ", gltf);
 
     window.addEventListener("keydown", (e) => {
@@ -35,18 +37,27 @@ export default function ShowRoom() {
 
     useEffect(() => {
         cameraControlsRef.current.setTarget(0, 0, 0, false);
+        cameraControlsRef.current.addEventListener( 'control', () => {
+            console.log("control")
+            setIsFitting(true)
+        })
+        cameraControlsRef.current.addEventListener( 'sleep', () => {
+            console.log("sleep")
+            setIsFitting(false)
+        })
     })
     let angle = 0;
     let dis = 2;
     useFrame(() => {
+        console.log("isFitting : ", isFitting);
         cameraControlsRef.current.setPosition(
             dis * Math.sin(angle),
             0.8,
-            dis * Math.cos(angle)
+            dis * Math.cos(angle),
+            true
         )
         angle = angle + 0.01;
     })
-    const cameraControlsRef = useRef<CameraControls>(null!);
 
     const shoesClick = () => {
 
@@ -64,6 +75,14 @@ export default function ShowRoom() {
             const mat = firstObj.material as THREE.MeshStandardMaterial;
             mat.color = new THREE.Color('red');
 
+            setIsFitting(true);
+            cameraControlsRef.current.fitToBox(
+                firstObj,
+                true,
+            ).then(() => {
+                setIsFitting(false);
+            })
+
             // cameraControlsRef.current.setLookAt(
             //     -2, 0, 2,
             //     firstObj.position.x,
@@ -71,16 +90,16 @@ export default function ShowRoom() {
             //     firstObj.position.z,
             //     true
             // )
-            cameraControlsRef.current.fitToBox(
-                firstObj,
-                true,
-                {
-                    paddingLeft: 3,
-                    paddingRight: 3,
-                    paddingTop: 3,
-                    paddingBottom: 3
-                }
-            )
+            // cameraControlsRef.current.fitToBox(
+            //     firstObj,
+            //     true,
+            //     {
+            //         paddingLeft: 3,
+            //         paddingRight: 3,
+            //         paddingTop: 3,
+            //         paddingBottom: 3
+            //     }
+            // )
 
         }
     }
@@ -94,8 +113,9 @@ export default function ShowRoom() {
                 // minDistance={2}
                 // maxDistance={10}
                 infinityDolly={false}
-                onChange={() => {
-                    // console.log("onChange");
+                onChange={(e:any) => {
+                    // console.log("onChange e : ", e);
+                    // console.log("onChange e.type", e.type);
                     // console.log("camera.zoom : ", camera.zoom);
                     // console.log("camera.position : ", camera.position);
                     
