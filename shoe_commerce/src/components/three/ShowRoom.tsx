@@ -53,16 +53,16 @@ export default function ShowRoom() {
         })
     })
     let angle = 0;
-    let dis = 2;
+    let dis = 2.0;
     useFrame(() => {
-        // console.log("isFitting : ", isFitting);
-        // cameraControlsRef.current.setPosition(
-        //     dis * Math.sin(angle),
-        //     0.8,
-        //     dis * Math.cos(angle),
-        //     true
-        // )
-        // angle = angle + 0.01;
+        console.log("isFitting : ", isFitting);
+        cameraControlsRef.current.setPosition(
+            dis * Math.sin(angle),
+            0.8,
+            dis * Math.cos(angle),
+            true
+        )
+        angle = angle + 0.01;
         
         const rightShoes = gltf.scene.children[0];
         const leftShoes = gltf.scene.children[1];
@@ -99,38 +99,15 @@ export default function ShowRoom() {
             cameraControlsRef.current.fitToBox(
                 firstObj,
                 true,
-            ).then(() => {
-                setIsFitting(false);
-            })
-
-            // cameraControlsRef.current.setLookAt(
-            //     -2, 0, 2,
-            //     firstObj.position.x,
-            //     firstObj.position.y,
-            //     firstObj.position.z,
-            //     true
-            // )
-            // cameraControlsRef.current.fitToBox(
-            //     firstObj,
-            //     true,
-            //     {
-            //         paddingLeft: 3,
-            //         paddingRight: 3,
-            //         paddingTop: 3,
-            //         paddingBottom: 3
-            //     }
-            // )
-
+            )
         }
     }
     return (
         <>
             <directionalLight 
-                // castShadow
                 position={[3, 3, 3]}
             />
             <pointLight
-                // castShadow
                 position={[0,1,0]}
                 intensity={3}
             />
@@ -138,14 +115,11 @@ export default function ShowRoom() {
                 ref={cameraControlsRef}
                 enabled={true}
                 dollyToCursor={true}
-                // minDistance={2}
-                // maxDistance={10}
+                minDistance={2}
+                maxDistance={10}
                 infinityDolly={false}
                 onChange={(e:any) => {
                     console.log("onChange e : ", e);
-                    console.log("onChange e.type", e.type);
-                    // console.log("camera.zoom : ", camera.zoom);
-                    // console.log("camera.position : ", camera.position);
                     
                 }}
             />
@@ -170,7 +144,6 @@ export default function ShowRoom() {
                 <meshStandardMaterial />
             </mesh>
             <primitive
-                // castShadow
                 object={gltf.scene}
                 onClick={shoesClick}
             />
