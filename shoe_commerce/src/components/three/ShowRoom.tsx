@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { useLoader , useThree, useFrame } from '@react-three/fiber'
-import { CameraControls } from '@react-three/drei'
+import { CameraControls, ContactShadows } from '@react-three/drei'
 import { useRef, useEffect, useState } from 'react';
 
 export default function ShowRoom() {
@@ -126,11 +126,11 @@ export default function ShowRoom() {
     return (
         <>
             <directionalLight 
-                castShadow
+                // castShadow
                 position={[3, 3, 3]}
             />
             <pointLight
-                castShadow
+                // castShadow
                 position={[0,1,0]}
                 intensity={3}
             />
@@ -162,7 +162,7 @@ export default function ShowRoom() {
                 receiveShadow
                 castShadow
                 scale={5}
-                position={[0, -0.5, 0]}
+                position={[0, -0.51, 0]}
             >
                 <cylinderGeometry 
                     args={[0.4, 0.2, 0.2, 50]}
@@ -170,9 +170,18 @@ export default function ShowRoom() {
                 <meshStandardMaterial />
             </mesh>
             <primitive
-                castShadow
+                // castShadow
                 object={gltf.scene}
                 onClick={shoesClick}
+            />
+
+            <ContactShadows 
+                position={[0,0,0]}
+                scale={10}
+                color="#000000"
+                resolution={512}
+                opacity={0.8}
+                blur={0.5}
             />
         </>
     )
