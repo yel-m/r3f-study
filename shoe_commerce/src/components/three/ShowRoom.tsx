@@ -3,9 +3,13 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { useLoader , useThree, useFrame } from '@react-three/fiber'
 import { CameraControls, ContactShadows } from '@react-three/drei'
 import { useRef, useEffect, useState } from 'react';
+import { selectedColorState } from '@src/atoms/Atoms';
+import { useRecoilState } from 'recoil';
+import Constants from '@src/Constants';
 
 export default function ShowRoom() {
 
+    const [selectedColorIdx, setSelectedColorIdx] = useRecoilState(selectedColorState);
     const { raycaster, camera } = useThree();
     const cameraControlsRef = useRef<CameraControls>(null!);
     const gltf = useLoader(GLTFLoader, './models/custom.glb')
@@ -62,7 +66,7 @@ export default function ShowRoom() {
             dis * Math.cos(angle),
             true
         )
-        angle = angle + 0.01;
+        // angle = angle + 0.01;
         
         const rightShoes = gltf.scene.children[0];
         const leftShoes = gltf.scene.children[1];
@@ -93,8 +97,9 @@ export default function ShowRoom() {
 
             firstObj.material = cloneMat;
             const mat = firstObj.material as THREE.MeshStandardMaterial;
-            mat.color = new THREE.Color('red');
+            // mat.color = new THREE.Color('red');
 
+            mat.color = new THREE.Color(Constants.COLOR_ARR[selectedColorIdx].color);
             setIsFitting(true);
             cameraControlsRef.current.fitToBox(
                 firstObj,

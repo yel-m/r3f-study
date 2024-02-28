@@ -8,10 +8,12 @@ import {
     ListItemText,
     Typography
 } from '@mui/material';
-import { useState } from 'react';
+import { selectedColorState } from '@src/atoms/Atoms';
+import { useRecoilState } from 'recoil';
 
 export default function ColorComp() {
-    const [selected, setSelected] = useState(0);
+    
+    const [selectedColorIdx, setSelectedColorIdx] = useRecoilState(selectedColorState);
     const padding = 16;
     const btnWidth = 30;
     const width = Constants.COLOR_ARR.length * (btnWidth + padding * 2);
@@ -19,14 +21,15 @@ export default function ColorComp() {
     const colorClick = (color:any, idx:number) => {
         console.log("colorClick color : ", color);
         console.log("colorClick idx : ", idx);
-        setSelected(idx);
+        // setSelected(idx);
+        setSelectedColorIdx(idx);
     };
     
     return(
         <Box className={'color-wrap'} >
             <Box className={'color-inner-wrap'} style={{width:width}} >
                 <Typography className='current-part'>
-                    {Constants.COLOR_ARR[selected].name}
+                    {Constants.COLOR_ARR[selectedColorIdx].name}
                 </Typography>
                 <List className={'list-wrap'} >
                     {
@@ -34,12 +37,12 @@ export default function ColorComp() {
                             <ListItem className='color-item' key={'color-'+idx} >
                                 <IconButton
                                     onClick={(e) => colorClick(color, idx)}
-                                    className={selected === idx ? 'color-btn selected' : 'color-btn' }
+                                    className={selectedColorIdx === idx ? 'color-btn selected' : 'color-btn' }
                                     style={{backgroundColor: color.color}}
                                 >
                                 </IconButton>
                                 {
-                                    1 === idx ?
+                                    selectedColorIdx === idx ?
                                         <ListItemText className='color-name' primary={color.name} />
                                     :
                                         <></>
