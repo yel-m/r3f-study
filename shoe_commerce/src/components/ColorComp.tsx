@@ -21,7 +21,6 @@ export default function ColorComp() {
     const colorClick = (color:any, idx:number) => {
         console.log("colorClick color : ", color);
         console.log("colorClick idx : ", idx);
-        // setSelected(idx);
         setSelectedColorIdx(idx);
     };
     

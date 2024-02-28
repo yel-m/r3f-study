@@ -40,13 +40,7 @@ export default function ShowRoom() {
     })
 
     useEffect(() => {
-        gltf.scene.children.forEach(shoes => {
-            shoes.castShadow = true;
-            shoes.children.forEach((mesh) => {
-                mesh.castShadow = true;
-            })
-        })
-        cameraControlsRef.current.setTarget(0, 0, 0, false);
+
         cameraControlsRef.current.addEventListener( 'control', () => {
             console.log("control")
             setIsFitting(true)
@@ -56,16 +50,15 @@ export default function ShowRoom() {
             setIsFitting(false)
         })
     })
-    let angle = 0;
-    let dis = 2.0;
+
     useFrame(() => {
         console.log("isFitting : ", isFitting);
-        cameraControlsRef.current.setPosition(
-            dis * Math.sin(angle),
-            0.8,
-            dis * Math.cos(angle),
-            true
-        )
+        // cameraControlsRef.current.setPosition(
+        //     dis * Math.sin(angle),
+        //     0.8,
+        //     dis * Math.cos(angle),
+        //     true
+        // )
         // angle = angle + 0.01;
         
         const rightShoes = gltf.scene.children[0];
@@ -97,7 +90,6 @@ export default function ShowRoom() {
 
             firstObj.material = cloneMat;
             const mat = firstObj.material as THREE.MeshStandardMaterial;
-            // mat.color = new THREE.Color('red');
 
             mat.color = new THREE.Color(Constants.COLOR_ARR[selectedColorIdx].color);
             setIsFitting(true);
