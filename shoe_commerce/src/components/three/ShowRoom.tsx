@@ -124,15 +124,6 @@ export default function ShowRoom() {
                 }}
             />
             <mesh
-                castShadow
-                position={[1, 0.3, 1]}
-            >
-                
-                <boxGeometry args={[0.5, 0.5]} />
-                <meshStandardMaterial />
-
-            </mesh>
-            <mesh
                 receiveShadow
                 castShadow
                 scale={5}
