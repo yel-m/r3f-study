@@ -3,14 +3,16 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { useLoader , useThree, useFrame } from '@react-three/fiber'
 import { CameraControls, ContactShadows } from '@react-three/drei'
 import { useRef, useEffect, useState } from 'react';
-import { selectedColorState } from '@src/atoms/Atoms';
+import { selectedColorState, selectedMeshState } from '@src/atoms/Atoms';
 import { useRecoilState } from 'recoil';
 import Constants from '@src/Constants';
 
 export default function ShowRoom() {
 
     const [selectedColorIdx, setSelectedColorIdx] = useRecoilState(selectedColorState);
-    const { raycaster, camera } = useThree();
+    const [selectedMeshName, setSelectedMeshName] = useRecoilState(selectedMeshState);
+    const { raycaster, camera, scene } = useThree();
+
     const cameraControlsRef = useRef<CameraControls>(null!);
     const gltf = useLoader(GLTFLoader, './models/custom.glb')
     
@@ -51,6 +53,17 @@ export default function ShowRoom() {
         })
     })
 
+    useEffect(() => {
+        console.log("selectedColorIdx : ", selectedColorIdx);
+        if(selectedMeshName != '') {
+            console.log("selectedMeshName : ", selectedMeshName);
+            const obj = scene.getObjectByName(selectedMeshName) as THREE.Mesh;
+            const mat = obj.material as THREE.MeshStandardMaterial;
+            const color = Constants.COLOR_ARR[selectedColorIdx].color;
+            mat.color = new THREE.Color(color);
+        }
+    }, [selectedColorIdx])
+
     useFrame(() => {
         console.log("isFitting : ", isFitting);
         // cameraControlsRef.current.setPosition(
@@ -85,6 +98,7 @@ export default function ShowRoom() {
         if (intersects.length > 0) {
             const firstObj = intersects[0].object as THREE.Mesh;
             console.log("firstObj.name : " + firstObj.name);
+            setSelectedMeshName(firstObj.name);
             const firstMat = firstObj.material as THREE.MeshStandardMaterial;
             const cloneMat = firstMat.clone();
 
