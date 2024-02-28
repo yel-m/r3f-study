@@ -38,10 +38,6 @@ export default class Constants {
         },
         {
             color:'#FFD73D',
-            name: 'Kumquat'
-        },
-        {
-            color:'#FFD73D',
             name: 'Tour Yellow'
         }
     ]
