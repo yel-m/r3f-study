@@ -54,6 +54,17 @@ export default function ShowRoom() {
     })
 
     useEffect(() => {
+        gltf.scene.traverse((item:any) => {
+            if(item.name === 'Vamp_Left') {
+                const firstMat = item.material as THREE.MeshStandardMaterial;
+                const cloneMat = firstMat.clone();
+                item.material = cloneMat;
+                setSelectedMeshName(item.name);
+            }
+        })
+    }, [gltf.scene])
+
+    useEffect(() => {
         console.log("selectedColorIdx : ", selectedColorIdx);
         if(selectedMeshName != '') {
             console.log("selectedMeshName : ", selectedMeshName);
@@ -105,8 +116,11 @@ export default function ShowRoom() {
             firstObj.material = cloneMat;
             const mat = firstObj.material as THREE.MeshStandardMaterial;
 
-            mat.color = new THREE.Color(Constants.COLOR_ARR[selectedColorIdx].color);
-            setIsFitting(true);
+            mat.emissive = new THREE.Color('#B6F3F1');
+            setTimeout(() => {
+                mat.emissive = new THREE.Color('black');
+            }, 500)
+
             cameraControlsRef.current.fitToBox(
                 firstObj,
                 true,

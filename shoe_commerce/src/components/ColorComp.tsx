@@ -8,12 +8,13 @@ import {
     ListItemText,
     Typography
 } from '@mui/material';
-import { selectedColorState } from '@src/atoms/Atoms';
+import { selectedColorState, selectedMeshState } from '@src/atoms/Atoms';
 import { useRecoilState } from 'recoil';
 
 export default function ColorComp() {
     
     const [selectedColorIdx, setSelectedColorIdx] = useRecoilState(selectedColorState);
+    const [ selectedMeshName ] = useRecoilState(selectedMeshState);
     const padding = 16;
     const btnWidth = 30;
     const width = Constants.COLOR_ARR.length * (btnWidth + padding * 2);
@@ -28,7 +29,7 @@ export default function ColorComp() {
         <Box className={'color-wrap'} >
             <Box className={'color-inner-wrap'} style={{width:width}} >
                 <Typography className='current-part'>
-                    {Constants.COLOR_ARR[selectedColorIdx].name}
+                    {selectedMeshName}
                 </Typography>
                 <List className={'list-wrap'} >
                     {
